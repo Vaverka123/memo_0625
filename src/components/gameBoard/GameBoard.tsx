@@ -21,7 +21,9 @@ const GameBoard = () => {
         setTimer((t) => t + 1);
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isActive]);
 
   useEffect(() => {
@@ -50,7 +52,8 @@ const GameBoard = () => {
         setMoves((prev) => prev + 1);
       }, 800);
     }
-  }, [flippedIndices, cards]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flippedIndices]);
 
   useEffect(() => {
     if (matchedCount === SYMBOLS.length) {

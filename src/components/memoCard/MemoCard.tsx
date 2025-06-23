@@ -23,6 +23,8 @@ const MemoCard: FC<MemoCardProps> = ({
       h="200px"
       onClick={handleClick}
       cursor={isMatched ? "default" : "pointer"}
+      role="button"
+      aria-label={`Card with symbol ${symbol}`}
     >
       <MotionBox
         w="full"
