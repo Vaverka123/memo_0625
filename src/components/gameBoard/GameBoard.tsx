@@ -15,7 +15,7 @@ const GameBoard = () => {
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isActive) {
       interval = setInterval(() => {
         setTimer((t) => t + 1);
@@ -52,8 +52,7 @@ const GameBoard = () => {
         setMoves((prev) => prev + 1);
       }, 800);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flippedIndices]);
+  }, [flippedIndices, cards]);
 
   useEffect(() => {
     if (matchedCount === SYMBOLS.length) {

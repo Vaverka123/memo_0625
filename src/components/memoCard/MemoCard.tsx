@@ -24,7 +24,11 @@ const MemoCard: FC<MemoCardProps> = ({
       onClick={handleClick}
       cursor={isMatched ? "default" : "pointer"}
       role="button"
-      aria-label={`Card with symbol ${symbol}`}
+      aria-label={
+        isFlipped || isMatched
+          ? `Card with symbol ${symbol}`
+          : "Hidden card, click to reveal"
+      }
     >
       <MotionBox
         w="full"
