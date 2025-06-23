@@ -23,7 +23,7 @@ const MemoCard: FC<MemoCardProps> = ({
       h="200px"
       onClick={handleClick}
       cursor={isMatched ? "default" : "pointer"}
-      role="button"
+      role="item"
       aria-label={
         isFlipped || isMatched
           ? `Card with symbol ${symbol}`
