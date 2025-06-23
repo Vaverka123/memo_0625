@@ -5,6 +5,6 @@ export interface GameCard {
   isMatched: boolean;
 }
 
-export interface MemoCardProps extends GameCard, Omit<GameCard, "id"> {
+export interface MemoCardProps extends GameCard {
   onClick: () => void;
 }
