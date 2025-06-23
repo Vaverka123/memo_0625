@@ -7,7 +7,7 @@ import ScoreBoard from "./components/scoreBoard/ScoreBoard";
 function App() {
   return (
     <Flex direction={"column"} align="center" justify="center" height="100vh">
-      <ScoreBoard />
+      <ScoreBoard moves={0} mistakes={0} time={"00:00"} />
       <GameBoard />
       <Controls />
     </Flex>
