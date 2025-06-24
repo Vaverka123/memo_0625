@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { motion } from "framer-motion";
 import type { MemoCardProps } from "@/types/types";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const MemoCard: FC<MemoCardProps> = ({
   symbol,

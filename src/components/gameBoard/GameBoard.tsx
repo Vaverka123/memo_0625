@@ -4,15 +4,16 @@ import MemoCard from "../memoCard/MemoCard";
 import type { GameCard } from "@/types/types";
 import Timer from "../timer/Timer";
 import { generateCards, SYMBOLS } from "@/helpers/generateCards";
+import Leaderboard from "../leaderboard/Leaderboard";
 
 const GameBoard = () => {
   const [cards, setCards] = useState<GameCard[]>(generateCards);
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
-  const [disableInput, setDisableInput] = useState(false);
+  const [disableInput, setDisableInput] = useState(true);
   const [moves, setMoves] = useState(0);
   const [matchedCount, setMatchedCount] = useState(0);
   const [timer, setTimer] = useState(0);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -90,40 +91,39 @@ const GameBoard = () => {
 
   return (
     <VStack mt={8}>
-      {allMatched && (
-        <Text fontSize="lg" fontWeight="bold" color="green.400">
-          🎉 You won in {moves} moves and {timer} seconds!
-        </Text>
+      {allMatched ? (
+        <>
+          <Text fontSize="xl" fontWeight="bold" color="green.400">
+            🎉 You won in {moves} moves and {timer} seconds!
+          </Text>
+          <Leaderboard moves={moves} time={timer} onRestart={handleReset} />
+        </>
+      ) : (
+        <>
+          <Flex w={"80%"} justify="space-between">
+            <Timer timer={timer} />{" "}
+            <Button color={"blue.500"} onClick={handleReset}>
+              {isActive ? "Restart Game" : "Start Game"}
+            </Button>
+            <Text fontSize="lg" fontWeight="semibold">
+              🎯 Moves: {moves}
+            </Text>
+          </Flex>
+
+          <Grid templateColumns="repeat(4, 1fr)" gap={4} m={4}>
+            {cards.map((card, index) => (
+              <MemoCard
+                key={card.id}
+                id={card.id}
+                symbol={card.symbol}
+                isFlipped={card.isFlipped}
+                isMatched={card.isMatched}
+                onClick={() => handleCardClick(index)}
+              />
+            ))}
+          </Grid>
+        </>
       )}
-      <Flex w={"80%"} justify="space-between">
-        <Timer timer={timer} />
-        <Text fontSize="lg" fontWeight="semibold">
-          🎯 Moves: {moves}
-        </Text>
-      </Flex>
-
-      <Grid templateColumns="repeat(4, 1fr)" gap={4} m={4}>
-        {cards.map((card, index) => (
-          <MemoCard
-            key={card.id}
-            id={card.id}
-            symbol={card.symbol}
-            isFlipped={card.isFlipped}
-            isMatched={card.isMatched}
-            onClick={() => handleCardClick(index)}
-          />
-        ))}
-      </Grid>
-
-      <Button
-        onClick={handleReset}
-        colorScheme="blue"
-        size="sm"
-        color={"white"}
-        m={4}
-      >
-        🔁 Restart Game
-      </Button>
     </VStack>
   );
 };
